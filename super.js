@@ -14,21 +14,47 @@ const ROWS = 3;
 const COLS = 3;
 
 const symbolsCount = {
-    "A" : 8,
-    "B" : 4,
-    "C" : 6,
-    "D" : 8
+    A : 8,
+    B : 4,
+    C : 6,
+    D : 8
 }
 
 const symbolValues = {
-    "A" : 5,
-    "B" : 4,
-    "C" : 3,
-    "D" : 2
+    A : 5,
+    B : 4,
+    C : 3,
+    D : 2
 }
 
 
 
+const spin = () => {
+
+    const symbols = [ ]
+
+    for(const [symbol, count] of Object.entries(symbolsCount)){
+        for(let i = 0; i < count; i++){
+            symbols.push(symbol);
+         }
+     }
+     
+
+     const reels = [[], [], []]
+
+     for( let i = 0; i < COLS; i++){
+        const reelSymbols = [...symbols];
+        for( let j = 0; j < ROWS; j++){
+
+        }
+     }
+
+    }
+
+
+
+
+spin();
 
 
 
