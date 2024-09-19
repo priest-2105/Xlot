@@ -10,6 +10,22 @@ const prompt = require("prompt-sync")();
 
 
 
+const ROWS = 3;
+const COLS = 3;
+
+const symbolsCount = {
+    "A" : 8,
+    "B" : 4,
+    "C" : 6,
+    "D" : 8
+}
+
+const symbolValues = {
+    "A" : 5,
+    "B" : 4,
+    "C" : 3,
+    "D" : 2
+}
 
 
 
