@@ -1,5 +1,5 @@
-let balance = 0;
-let hasDeposited = false;  // To track if the user has already deposited
+let balance = parseFloat(localStorage.getItem("balance")) || 0;
+let hasDeposited = localStorage.getItem("hasDeposited") === "true";  // Track if the user has already deposited
 
 const ROWS = 3;
 const COLS = 3;
@@ -28,6 +28,12 @@ const showNotification = (message) => {
     }, 3000);
 };
 
+// Update local storage with balance and deposit status
+const updateLocalStorage = () => {
+    localStorage.setItem("balance", balance);
+    localStorage.setItem("hasDeposited", hasDeposited);
+};
+
 document.getElementById("depositButton").addEventListener("click", () => {
     const depositAmount = parseFloat(document.getElementById("deposit").value);
     if (isNaN(depositAmount) || depositAmount <= 0) {
@@ -37,9 +43,9 @@ document.getElementById("depositButton").addEventListener("click", () => {
         updateBalance();
         hasDeposited = true;  // Mark that the user has made the first deposit
         document.getElementById("depositContainer").style.display = "none";  // Hide the deposit controls
+        updateLocalStorage(); // Update local storage
     }
 });
-
 
 const updateSlotMachineRows = (lines) => {
     const container = document.getElementById("slotMachineContainer");
@@ -71,9 +77,7 @@ document.getElementById("lines").addEventListener("input", () => {
     updateSlotMachineRows(lines);
 });
 
-
 updateSlotMachineRows(1);
-
 
 document.getElementById("spinButton").addEventListener("click", () => {
     const lines = parseInt(document.getElementById("lines").value);
@@ -89,15 +93,16 @@ document.getElementById("spinButton").addEventListener("click", () => {
         const winnings = getWinnings(rows, bet, lines);
         balance += winnings;
         updateBalance();
+        updateLocalStorage(); // Update local storage after changing balance
         document.getElementById("resultMessage").textContent = `You won: $${winnings}`;
         if (balance <= 0) {
             showNotification("Game Over! You have no money left.");
             document.getElementById("depositContainer").style.display = "block";  // Show deposit controls again
             hasDeposited = false;
+            updateLocalStorage(); // Update local storage
         }
     }
 });
-
 
 const updateBalance = () => {
     document.getElementById("balance").textContent = balance;
@@ -140,7 +145,6 @@ const transpose = (reels) => {
     return rows;
 };
 
-
 const displaySlots = (rows, lines) => {
     // Clear all rows first
     for (let i = 1; i <= ROWS; i++) {
@@ -156,7 +160,6 @@ const displaySlots = (rows, lines) => {
         document.getElementById(`slot3_${i + 1}`).textContent = rows[i][2];
     }
 };
-
 
 const getWinnings = (rows, bet, lines) => {
     let winnings = 0;
@@ -179,3 +182,5 @@ const getWinnings = (rows, bet, lines) => {
 
     return winnings;
 };
+
+updateBalance();
