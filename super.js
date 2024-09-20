@@ -5,17 +5,17 @@ const ROWS = 3;
 const COLS = 3;
 
 const symbolsCount = {
-    "A": 8,
-    "B": 4,
-    "C": 6,
-    "D": 8
+    "✨": 8,
+    "💀": 4,
+    "👀": 6,
+    "🤑": 8
 };
 
 const symbolValues = {
-    "A": 5,
-    "B": 4,
-    "C": 3,
-    "D": 2
+    "✨": 5,
+    "💀": 4,
+    "👀": 3,
+    "🤑": 2
 };
 
 // Helper function to show notifications
